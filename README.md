@@ -176,3 +176,77 @@ copy and add works simillar except add have following features
 ### note
 when its copying the data from directory it can only copy the dockerfile directory or subdirectory content and not from uplevel director as when docker client passes the context to docker engine it doesn't have to access other thant that
 
+### RUN VS CMD
+- run executes commands at build time
+- cmd executes commands at run time
+
+### CMD VS ENTRYPOINT
+
+overriding cmd command is easy at time of running container as compared to entrypoint as in case of entrypoint we have to pass --entrypoint flag
+
+ex-
+docker run -it react-app --entrypoint npm start
+
+#### shell form
+it will execute in the seperate shell
+
+```CMD npm start```
+### execute form
+it will run the commands in same shell
+
+```CMD ["npm", "start"]```
+
+### a docker image is collection of layers
+```docker history <image name>```
+
+
+### NOTE:
+to optimize the docker build try to use the cached data and the instrction that are not changing keep them before the instruction that are changing
+
+
+### pruning images
+```docker image prune```
+
+```docker container prune```
+
+### tagging an image
+* we can tag at build
+
+```docker build -t <image-name>:<tag> .```
+* or can tag after build
+
+```docker image tag <image name>:<tag name> <image name>:<new tag name>```
+
+### saving an image
+```docker image save -o react-app.tar react-app:3```
+
+### loading an image
+```docker image load -i react-app.tar```
+
+## working with containers
+
+### run a container in detach mode
+
+```docker run -d <image name>```
+
+### run a container in detach mode and also give it a name (default it will assign automatically)
+
+```docker run -d --name blue-sky <image name>```
+
+
+### viewing the container log
+```docker logs <container id>```
+
+### publishing the ports
+we are mapping host port with container port
+
+```docker run -d -p <host port>:<container port> --name blue-op <image id>```
+
+### executing command in running container
+```docker exec -it <container id> sh```
+
+### starting and stopping containers
+```docker start <container name>```
+
+```docker stop container-id```
+
